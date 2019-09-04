@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TurvoTest</string>
+
+    <string name="tickers_hint">e.g. TSLA, GS, CRM</string>
+    <string name="tickers_label">Ticker symbols</string>
+    <string name="next">Next</string>
+    <string name="portfolio">Portfolio</string>
+
 </resources>

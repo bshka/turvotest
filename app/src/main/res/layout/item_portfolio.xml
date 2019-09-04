@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?android:listPreferredItemHeightLarge"
+    android:background="?selectableItemBackground"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:weightSum="7">
+
+    <TextView
+        style="@style/TickerListItem"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        tools:text="TSLA" />
+
+    <TextView
+        style="@style/TickerPriceListItem"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:textAllCaps="true"
+        tools:text="304.87" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_weight="3" />
+
+</LinearLayout>

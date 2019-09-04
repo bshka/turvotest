@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_navigation"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
     app:startDestination="@id/tickersFragment">
 
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.itechart.turvotest.screens.DetailsFragment"
-        android:label="DetailsFragment" />
+        android:label="DetailsFragment"
+        tools:layout="@layout/fragment_details" />
     <fragment
         android:id="@+id/portfolioFragment"
         android:name="com.itechart.turvotest.screens.PortfolioFragment"
-        android:label="PortfolioFragment" >
+        android:label="PortfolioFragment"
+        tools:layout="@layout/fragment_portfolio">
         <action
             android:id="@+id/action_portfolioFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@+id/portfolioFragment" />
     </fragment>
     <fragment
         android:id="@+id/tickersFragment"
         android:name="com.itechart.turvotest.screens.TickersFragment"
-        android:label="TickersFragment" >
+        android:label="TickersFragment"
+        tools:layout="@layout/fragment_tickers">
         <action
             android:id="@+id/action_tickersFragment_to_portfolioFragment"
-            app:destination="@id/portfolioFragment" />
+            app:destination="@id/portfolioFragment"
+            app:popUpTo="@+id/tickersFragment" />
     </fragment>
 </navigation>
