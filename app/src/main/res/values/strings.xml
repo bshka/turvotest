@@ -3,6 +3,9 @@
 
     <string name="tickers_hint">e.g. TSLA, GS, CRM</string>
     <string name="tickers_label">Ticker symbols</string>
+    <string name="tickers_error_enter_tickers">Please, enter tickers.</string>
+    <string name="tickers_error_too_much_tickers">Please, enter five or less tickers.</string>
+
     <string name="next">Next</string>
     <string name="portfolio">Portfolio</string>
 

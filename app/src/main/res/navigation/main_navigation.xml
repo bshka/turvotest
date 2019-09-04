@@ -7,27 +7,34 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.itechart.turvotest.screens.DetailsFragment"
+        android:name="com.itechart.turvotest.screens.details.DetailsFragment"
         android:label="DetailsFragment"
         tools:layout="@layout/fragment_details" />
     <fragment
         android:id="@+id/portfolioFragment"
-        android:name="com.itechart.turvotest.screens.PortfolioFragment"
+        android:name="com.itechart.turvotest.screens.portfolio.PortfolioFragment"
         android:label="PortfolioFragment"
         tools:layout="@layout/fragment_portfolio">
         <action
             android:id="@+id/action_portfolioFragment_to_detailsFragment"
             app:destination="@id/detailsFragment"
             app:popUpTo="@+id/portfolioFragment" />
+        <argument
+            android:name="tickers"
+            app:argType="string[]" />
     </fragment>
     <fragment
         android:id="@+id/tickersFragment"
-        android:name="com.itechart.turvotest.screens.TickersFragment"
+        android:name="com.itechart.turvotest.screens.tickers.TickersFragment"
         android:label="TickersFragment"
         tools:layout="@layout/fragment_tickers">
         <action
-            android:id="@+id/action_tickersFragment_to_portfolioFragment"
+            android:id="@+id/action_portfolioFragment"
             app:destination="@id/portfolioFragment"
+            app:enterAnim="@anim/enter"
+            app:exitAnim="@anim/exit"
+            app:popEnterAnim="@anim/pop_enter"
+            app:popExitAnim="@anim/pop_exit"
             app:popUpTo="@+id/tickersFragment" />
     </fragment>
 </navigation>

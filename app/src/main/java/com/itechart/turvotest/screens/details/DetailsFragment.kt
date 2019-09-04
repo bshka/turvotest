@@ -1,4 +1,4 @@
-package com.itechart.turvotest.screens
+package com.itechart.turvotest.screens.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
