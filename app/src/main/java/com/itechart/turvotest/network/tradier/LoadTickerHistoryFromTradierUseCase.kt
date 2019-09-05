@@ -23,7 +23,6 @@ class LoadTickerHistoryFromTradierUseCase(
             .map { it.toTicker(ticker) }
     }
 
-
     override fun load(tickers: Array<String>): Single<List<Ticker>> {
         val start = DATE_FORMAT.format(Calendar.getInstance().apply {
             add(Calendar.DAY_OF_MONTH, -10)
@@ -39,7 +38,9 @@ class LoadTickerHistoryFromTradierUseCase(
                 }
             )
         }
-        return observable.map { it.toList() }
+        return observable.map { data ->
+            data.filter { !it.history.isNullOrEmpty() }.toList()
+        }
     }
 
     companion object {

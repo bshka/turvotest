@@ -6,20 +6,29 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import com.itechart.turvotest.R
 import com.itechart.turvotest.common.utils.Listener
+import com.itechart.turvotest.common.utils.PreferenceHelper
 import com.itechart.turvotest.screens.common.viewmodel.BaseActionsViewModel
 import com.itechart.turvotest.screens.common.viewmodel.ViewModelActions
 
 class TickersViewModel(
-    private val context: Context
+    private val context: Context,
+    private val preferenceHelper: PreferenceHelper
 ) : BaseActionsViewModel<TickerViewModelActions>() {
 
-    val next: Listener = { sendEvent(TickerViewModelActions.NextClicked(tickersList(text))) }
+    val next: Listener = {
+        preferenceHelper.savedTickers = text
+        sendEvent(TickerViewModelActions.NextClicked(tickersList(text)))
+    }
 
     val nextEnabled = ObservableBoolean(false)
     val error = ObservableField<String?>()
 
-    var text: String? = ""
+    var text: String? = preferenceHelper.savedTickers
         private set
+
+    init {
+        nextEnabled.set(getInputError(tickersList(text)).isNullOrEmpty())
+    }
 
     fun setText(editable: Editable?) {
         text = editable?.toString()

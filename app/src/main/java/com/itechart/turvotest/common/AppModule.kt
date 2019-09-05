@@ -2,12 +2,15 @@ package com.itechart.turvotest.common
 
 import com.google.gson.Gson
 import com.itechart.turvotest.BuildConfig
+import com.itechart.turvotest.common.utils.PreferenceHelper
+import com.itechart.turvotest.model.Ticker
 import com.itechart.turvotest.network.LoadTickerHistoryUseCase
 import com.itechart.turvotest.network.alpha.AlphaApiInterceptor
 import com.itechart.turvotest.network.alpha.AlphaVantageApi
 import com.itechart.turvotest.network.tradier.LoadTickerHistoryFromTradierUseCase
 import com.itechart.turvotest.network.tradier.TradierApi
 import com.itechart.turvotest.network.tradier.TradierApiInterceptor
+import com.itechart.turvotest.screens.details.DetailsViewModel
 import com.itechart.turvotest.screens.portfolio.PortfolioViewModel
 import com.itechart.turvotest.screens.tickers.TickersViewModel
 import okhttp3.Cache
@@ -23,12 +26,17 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 val viewModels = module {
-    viewModel { TickersViewModel(androidContext()) }
+    viewModel { TickersViewModel(androidContext(), get()) }
     viewModel { (tickers: Array<String>) -> PortfolioViewModel(tickers, get(), get()) }
+    viewModel { (ticker: Ticker) -> DetailsViewModel(ticker) }
 }
 
 val rxJava = module {
     single { SchedulersProvider() }
+}
+
+val utils = module {
+    single { PreferenceHelper(androidContext()) }
 }
 
 val network = module {
@@ -74,7 +82,7 @@ val network = module {
 
         val logging = HttpLoggingInterceptor()
         logging.level = if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor.Level.HEADERS
+            HttpLoggingInterceptor.Level.BODY
         } else {
             HttpLoggingInterceptor.Level.NONE
         }

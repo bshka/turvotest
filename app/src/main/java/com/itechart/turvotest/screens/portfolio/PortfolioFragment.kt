@@ -1,5 +1,7 @@
 package com.itechart.turvotest.screens.portfolio
 
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.itechart.turvotest.R
 import com.itechart.turvotest.databinding.FragmentPortfolioBinding
@@ -23,8 +25,17 @@ class PortfolioFragment : BaseFragment<PortfolioViewModel, FragmentPortfolioBind
         observe(viewModel.events) {
             when (it) {
                 is PortfolioViewModelActions.TickerClicked -> {
-                    // TODO
+                    val extras = FragmentNavigatorExtras(
+                        it.title to "title",
+                        it.price to "price",
+                        it.chart to "chart"
+                    )
+                    findNavController().navigate(
+                        PortfolioFragmentDirections.actionPortfolioFragmentToDetailsFragment(it.ticker),
+                        extras
+                    )
                 }
+                is PortfolioViewModelActions.Close -> findNavController().navigateUp()
             }
         }
     }

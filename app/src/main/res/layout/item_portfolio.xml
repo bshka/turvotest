@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -20,6 +21,7 @@
         android:weightSum="7">
 
         <TextView
+            android:id="@+id/title"
             style="@style/TickerListItem"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -28,6 +30,7 @@
             tools:text="TSLA" />
 
         <TextView
+            android:id="@+id/price"
             style="@style/TickerPriceListItem"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -36,11 +39,18 @@
             android:textAllCaps="true"
             tools:text="304.87" />
 
-        <ImageView
+        <com.db.williamchart.view.LineChartView
+            android:id="@+id/chart"
+            chartData="@{viewModel.chartData}"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp"
+            app:chart_axis="none"
+            app:chart_lineColor="@android:color/black"
+            app:chart_lineThickness="3dp" />
 
     </LinearLayout>
 </layout>

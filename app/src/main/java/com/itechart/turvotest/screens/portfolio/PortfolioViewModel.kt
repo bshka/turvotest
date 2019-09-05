@@ -1,8 +1,11 @@
 package com.itechart.turvotest.screens.portfolio
 
+import android.widget.TextView
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
+import com.db.williamchart.view.LineChartView
 import com.itechart.turvotest.common.SchedulersProvider
+import com.itechart.turvotest.common.utils.Listener
 import com.itechart.turvotest.model.Ticker
 import com.itechart.turvotest.network.LoadTickerHistoryUseCase
 import com.itechart.turvotest.screens.common.list.ListItemActions
@@ -21,11 +24,13 @@ class PortfolioViewModel(
     val dataList = ObservableField<List<PortfolioListItemView>>()
     val childToShow = ObservableInt(0)
 
+    val close: Listener = { sendEvent(PortfolioViewModelActions.Close) }
+
     init {
         registerActionsSource(listEventsObserver.map {
             when (it) {
                 is PortfolioListItemActions.TickerClicked -> PortfolioViewModelActions.TickerClicked(
-                    it.ticker
+                    it.ticker, it.title, it.price, it.chart
                 )
                 else -> throw IllegalArgumentException("Unknown item -> $it")
             }
@@ -61,5 +66,12 @@ class PortfolioViewModel(
 }
 
 sealed class PortfolioViewModelActions : ViewModelActions {
-    data class TickerClicked(val ticker: Ticker) : PortfolioViewModelActions()
+    data class TickerClicked(
+        val ticker: Ticker,
+        val title: TextView,
+        val price: TextView,
+        val chart: LineChartView
+    ) : PortfolioViewModelActions()
+
+    object Close : PortfolioViewModelActions()
 }

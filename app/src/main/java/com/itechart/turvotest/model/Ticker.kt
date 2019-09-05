@@ -9,5 +9,5 @@ data class Ticker(
     val id: Long,
     val title: String,
     val lastPrice: Float,
-    val history: Map<Date, Float>
+    val history: Map<Date, Float>?
 ) : Parcelable

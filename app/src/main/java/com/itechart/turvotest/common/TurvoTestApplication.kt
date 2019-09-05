@@ -17,7 +17,7 @@ class TurvoTestApplication : Application() {
             }
             modules(
                 listOf(
-                    viewModels, rxJava, network
+                    viewModels, rxJava, network, utils
                 )
             )
         }

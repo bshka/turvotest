@@ -30,10 +30,6 @@ abstract class BaseFragment<ViewModel : BaseActionsViewModel<*>, BindingType : V
 
     abstract fun bindViewModel(binding: BindingType)
 
-    final override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     final override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

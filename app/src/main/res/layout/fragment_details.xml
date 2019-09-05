@@ -1,68 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/graph"
-        android:layout_width="0dp"
-        android:layout_height="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+    <data>
 
-    <TextView
-        android:id="@+id/title"
-        style="@style/TickerDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/graph"
-        tools:text="GS" />
+        <variable
+            name="viewModel"
+            type="com.itechart.turvotest.screens.details.DetailsViewModel" />
+    </data>
 
-    <TextView
-        android:id="@+id/price"
-        style="@style/TickerPriceDetails"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/title"
-        app:layout_constraintTop_toBottomOf="@+id/graph"
-        tools:text="152.54" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/details"
-        style="@style/TickerDetailsText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        app:fabSize="mini"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_close" />
+            <com.db.williamchart.view.LineChartView
+                android:id="@+id/graph"
+                chartData="@{viewModel.chartData}"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:paddingStart="16dp"
+                android:paddingTop="30dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="30dp"
+                android:transitionName="chart"
+                app:chart_axis="xy"
+                app:chart_lineColor="@android:color/black"
+                app:chart_lineThickness="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/TickerDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@{viewModel.title}"
+                android:transitionName="title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/graph"
+                tools:text="GS" />
+
+            <TextView
+                android:id="@+id/price"
+                style="@style/TickerPriceDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{viewModel.price}"
+                android:transitionName="price"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/graph"
+                tools:text="152.54" />
+
+            <TextView
+                android:id="@+id/details"
+                style="@style/TickerDetailsText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                android:onClick="@{viewModel.close}"
+                app:fabSize="mini"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_close" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

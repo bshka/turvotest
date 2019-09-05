@@ -9,7 +9,11 @@
         android:id="@+id/detailsFragment"
         android:name="com.itechart.turvotest.screens.details.DetailsFragment"
         android:label="DetailsFragment"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="ticker"
+            app:argType="com.itechart.turvotest.model.Ticker" />
+    </fragment>
     <fragment
         android:id="@+id/portfolioFragment"
         android:name="com.itechart.turvotest.screens.portfolio.PortfolioFragment"

@@ -33,7 +33,7 @@ fun DailySchema.toTicker(title: String): Ticker {
 	}
 	return Ticker(
 		id = Random.nextLong(),
-		history = data,
+		history = if (data.isEmpty()) null else data,
 		lastPrice = data.values.max() ?: 0f,
 		title = title
 	)
