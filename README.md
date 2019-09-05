@@ -1,6 +1,6 @@
 # Stocks Application
 
-Show stock values by request
+Show stock values by request. Appication uses [Tradier](https://tradier.com/) as a data provider.
 
 ### Building
 
