@@ -11,7 +11,7 @@ class PortfolioListItemView(
 ) : ListItemView<ListItemActions>() {
 
     val title = ticker.title
-    val price = String.format("%.2f", ticker.price)
+    val price = String.format("%.2f", ticker.lastPrice)
     val click: Listener = { sendEvent(PortfolioListItemActions.TickerClicked(ticker)) }
 
     override val layout: Int = R.layout.item_portfolio

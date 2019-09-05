@@ -10,13 +10,15 @@ import io.reactivex.subjects.PublishSubject
 object RecyclerViewBinding {
 
     @BindingAdapter("initAdapter")
-    fun setupAdapter(recycler: RecyclerView, subject: PublishSubject<ListItemActions>) {
-        if (recycler.adapter == null) {
+    @JvmStatic
+    fun setupAdapter(recycler: RecyclerView, subject: PublishSubject<ListItemActions>?) {
+        if (recycler.adapter == null && subject != null) {
             recycler.adapter = RecyclerBindingAdapter(eventsObserver = subject)
         }
     }
 
     @BindingAdapter("viewModelItems")
+    @JvmStatic
     fun <T : ListItemView<*>> setupRecyclerViewViewModelItems(
         recycler: RecyclerView,
         items: List<T>?

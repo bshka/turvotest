@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.itechart.turvotest">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".common.TurvoTestApplication"
         android:allowBackup="true"

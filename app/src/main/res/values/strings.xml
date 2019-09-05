@@ -9,4 +9,6 @@
     <string name="next">Next</string>
     <string name="portfolio">Portfolio</string>
 
+    <string name="portfolio_error_text">Can\'t load data. Try again later.\nClick to refresh.</string>
+
 </resources>
