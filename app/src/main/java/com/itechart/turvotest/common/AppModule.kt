@@ -5,8 +5,6 @@ import com.itechart.turvotest.BuildConfig
 import com.itechart.turvotest.common.utils.PreferenceHelper
 import com.itechart.turvotest.model.Ticker
 import com.itechart.turvotest.network.LoadTickerHistoryUseCase
-import com.itechart.turvotest.network.alpha.AlphaApiInterceptor
-import com.itechart.turvotest.network.alpha.AlphaVantageApi
 import com.itechart.turvotest.network.tradier.LoadTickerHistoryFromTradierUseCase
 import com.itechart.turvotest.network.tradier.TradierApi
 import com.itechart.turvotest.network.tradier.TradierApiInterceptor
@@ -27,8 +25,8 @@ import java.util.concurrent.TimeUnit
 
 val viewModels = module {
     viewModel { TickersViewModel(androidContext(), get()) }
-    viewModel { (tickers: Array<String>) -> PortfolioViewModel(tickers, get(), get()) }
-    viewModel { (ticker: Ticker) -> DetailsViewModel(ticker) }
+    viewModel { (tickers: Array<String>) -> PortfolioViewModel(tickers, get(), get(), get()) }
+    viewModel { (ticker: Ticker) -> DetailsViewModel(ticker, androidContext()) }
 }
 
 val rxJava = module {
@@ -40,39 +38,6 @@ val utils = module {
 }
 
 val network = module {
-
-    single {
-
-        val cacheSize = (10 * 1024 * 1024).toLong() // 10 MB
-        val httpCacheDirectory = File(androidContext().cacheDir, "http-cache")
-        val cache = Cache(httpCacheDirectory, cacheSize)
-
-        val logging = HttpLoggingInterceptor()
-        logging.level = if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor.Level.BODY
-        } else {
-            HttpLoggingInterceptor.Level.NONE
-        }
-
-        val httpClient = OkHttpClient.Builder()
-            .cache(cache)
-            .addInterceptor(AlphaApiInterceptor())
-            .addInterceptor(logging)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .build()
-
-        Retrofit.Builder()
-            .baseUrl("https://www.alphavantage.co/")
-            .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create(Gson()))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-            .create(AlphaVantageApi::class.java)
-
-    }
-
-
 
     single {
 

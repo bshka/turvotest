@@ -1,16 +1,20 @@
 package com.itechart.turvotest.screens.portfolio
 
+import android.graphics.Color
 import android.widget.TextView
 import androidx.databinding.ViewDataBinding
-import com.db.williamchart.view.LineChartView
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.itechart.turvotest.R
 import com.itechart.turvotest.common.utils.Listener
 import com.itechart.turvotest.databinding.ItemPortfolioBinding
 import com.itechart.turvotest.model.Ticker
+import com.itechart.turvotest.screens.common.ChartData
 import com.itechart.turvotest.screens.common.list.ListItemActions
 import com.itechart.turvotest.screens.common.list.ListItemView
-import java.text.SimpleDateFormat
-import java.util.*
 
 class PortfolioListItemView(
     ticker: Ticker
@@ -29,25 +33,28 @@ class PortfolioListItemView(
         }
     }
 
-//    val chartData: List<DataEntry> by lazy {
-//        val list = mutableListOf<DataEntry>()
-//        ticker.history.forEach {
-//            list.add(
-//                ValueDataEntry(DATE_FORMAT.format(it.key), it.value)
-//            )
-//        }
-//        list
-//    }
-
-    val chartData: LinkedHashMap<String, Float>? by lazy {
+    val chartData: ChartData? by lazy {
         if (ticker.history.isNullOrEmpty()) {
             null
         } else {
-            val list = linkedMapOf<String, Float>()
+            val dataSets = mutableListOf<ILineDataSet>()
+            val entries = mutableListOf<Entry>()
+            var j = -1
             ticker.history.forEach {
-                list[DATE_FORMAT.format(it.key)] = it.value
+                entries.add(
+                    Entry(j++.toFloat(), it.value)
+                )
             }
-            list
+            dataSets.add(
+                LineDataSet(entries, null).apply {
+                    lineWidth = 3f
+                    setDrawCircles(false)
+                    color = Color.GRAY
+                    mode = LineDataSet.Mode.CUBIC_BEZIER
+                    setDrawValues(false)
+                }
+            )
+            ChartData(LineData(dataSets), null, false)
         }
     }
 
@@ -64,11 +71,6 @@ class PortfolioListItemView(
         this.binding = null
     }
 
-    companion object {
-        private val DATE_FORMAT = SimpleDateFormat("d", Locale.ENGLISH)
-    }
-
-
 }
 
 sealed class PortfolioListItemActions : ListItemActions {
@@ -76,7 +78,7 @@ sealed class PortfolioListItemActions : ListItemActions {
         val ticker: Ticker,
         val title: TextView,
         val price: TextView,
-        val chart: LineChartView
+        val chart: LineChart
     ) :
         PortfolioListItemActions()
 }

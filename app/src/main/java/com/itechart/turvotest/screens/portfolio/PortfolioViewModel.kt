@@ -1,9 +1,12 @@
 package com.itechart.turvotest.screens.portfolio
 
+import android.content.Context
 import android.widget.TextView
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import com.db.williamchart.view.LineChartView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.mikephil.charting.charts.LineChart
 import com.itechart.turvotest.common.SchedulersProvider
 import com.itechart.turvotest.common.utils.Listener
 import com.itechart.turvotest.model.Ticker
@@ -17,7 +20,8 @@ import timber.log.Timber
 class PortfolioViewModel(
     private val tickers: Array<String>,
     private val loadTicker: LoadTickerHistoryUseCase,
-    private val schedulersProvider: SchedulersProvider
+    private val schedulersProvider: SchedulersProvider,
+    context: Context
 ) : BaseActionsViewModel<PortfolioViewModelActions>() {
 
     val listEventsObserver = PublishSubject.create<ListItemActions>()
@@ -25,6 +29,7 @@ class PortfolioViewModel(
     val childToShow = ObservableInt(0)
 
     val close: Listener = { sendEvent(PortfolioViewModelActions.Close) }
+    val decoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
 
     init {
         registerActionsSource(listEventsObserver.map {
@@ -70,7 +75,7 @@ sealed class PortfolioViewModelActions : ViewModelActions {
         val ticker: Ticker,
         val title: TextView,
         val price: TextView,
-        val chart: LineChartView
+        val chart: LineChart
     ) : PortfolioViewModelActions()
 
     object Close : PortfolioViewModelActions()

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -39,18 +38,15 @@
             android:textAllCaps="true"
             tools:text="304.87" />
 
-        <com.db.williamchart.view.LineChartView
+        <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"
             chartData="@{viewModel.chartData}"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="16dp"
-            app:chart_axis="none"
-            app:chart_lineColor="@android:color/black"
-            app:chart_lineThickness="3dp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="3" />
 
     </LinearLayout>
 </layout>

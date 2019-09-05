@@ -26,4 +26,12 @@ object RecyclerViewBinding {
         (recycler.adapter as? RecyclerBindingAdapter)?.setItems(items ?: emptyList())
     }
 
+    @BindingAdapter("itemDecoration")
+    @JvmStatic
+    fun setDecoration(recycler: RecyclerView, decoration: RecyclerView.ItemDecoration?) {
+        decoration?.let {
+            recycler.addItemDecoration(decoration)
+        }
+    }
+
 }
